@@ -1,0 +1,40 @@
+Accelerometer calibration Start
+-838,14822,-143,46,39,69
+-10,147,-4,-7,150,0
+Accelerometer calibration End
+Accelerometer calibration Start
+-840,14830,-135,38,53,69
+-10,147,-4,-7,150,0
+Accelerometer calibration End
+Accelerometer calibration Start
+-833,14820,-140,46,38,56
+-10,147,-3,-7,150,0
+Accelerometer calibration End
+Accelerometer calibration Start
+-825,14832,-147,49,40,59
+-10,147,-3,-7,150,0
+Accelerometer calibration End
+Accelerometer calibration Start
+-837,14828,-155,35,42,67
+-9,147,-4,-7,150,0
+Accelerometer calibration End
+Accelerometer calibration Start
+-841,14835,-155,38,39,69
+-10,147,-4,-7,150,0
+Accelerometer calibration End
+Accelerometer calibration Start
+-827,14835,-139,56,49,52
+-10,147,-3,-7,150,0
+Accelerometer calibration End
+Accelerometer calibration Start
+-824,14831,-146,34,45,63
+-9,147,-3,-7,150,0
+Accelerometer calibration End
+Accelerometer calibration Start
+-838,14823,-149,39,42,55
+-10,147,-4,-7,150,0
+Accelerometer calibration End
+Accelerometer calibration Start
+-832,14823,-144,34,46,55
+-10,147,-3,-7,150,0
+Accelerometer calibration End

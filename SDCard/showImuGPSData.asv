@@ -1,9 +1,11 @@
-%% Close previous elements, import file from SD Card.
+%% Close, import, compute stats, plot
 clc;
 clear all;
 close all
-IMU = copyAndImportFileFromSDCard('imuRotationOfPitchAngle');
-%% Compute time vector
+copyAndImportFile('ble')
+load('ble');
+%% Plot some angles ;)
+clc;
 numberOfProbes = length(IMU);
 undersamplingFactor = 40;
 samplingFrequency = 400;    %Hz
