@@ -2,6 +2,12 @@
 clc;
 clear all;
 close all
+imuDatatset = importfile('E:\\IMU.CSV', 2, inf);
+copyfile('E:\\IMU.csv',pwd,'filename');
+datasetFileName = 'imuPitchRotation';
+save(datasetFileName,'imuDatatset');
+%%
+
 filename = 'IMU_w pookoju.CSV';
 % IMU = importfile(filename, 6*400, 11*400);
 IMU = importfile(filename, 2, inf);

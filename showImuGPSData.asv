@@ -2,6 +2,11 @@
 clc;
 clear all;
 close all
+imuDatatset = importfile('E:\\IMU.CSV', 2, inf);
+datasetFileName = 'imuPitchRotation';
+save(datasetFileName,'imuDatatset');
+%%
+
 filename = 'IMU_w pookoju.CSV';
 % IMU = importfile(filename, 6*400, 11*400);
 IMU = importfile(filename, 2, inf);
@@ -53,14 +58,3 @@ plot(t,IMU.dop);
 hold on
 plot(t,IMU.hdop,'-r');
 legend('dop','hdop');
-
-%%
-Declaring the variable in Matlab:
-
-   >> 
-Specifying the editor in Linux:
-
-   >> 
-Specifying the editor in Mac OSX:
-
-   >> GIT_EDITOR = 'TextEdit';  Simply provide the application name
