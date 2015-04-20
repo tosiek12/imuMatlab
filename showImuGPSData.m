@@ -53,4 +53,3 @@ plot(t,IMU.dop);
 hold on
 plot(t,IMU.hdop,'-r');
 legend('dop','hdop');
-
