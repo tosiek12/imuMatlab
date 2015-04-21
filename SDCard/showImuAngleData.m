@@ -2,7 +2,6 @@
 clc;
 clear all;
 close all
-%%
 IMU = copyAndImportFileFromSDCard('imuUpAndDownInOZ2');
 %% (optional) Just load only file to workspace:
 % load('imuRotationOfPitchAngle.mat');
@@ -25,8 +24,10 @@ undersamplingFactor = 40;
 samplingFrequency = 400;    %Hz
 loggingFrequency = samplingFrequency/undersamplingFactor;   
 t = (1:numberOfProbes)./loggingFrequency;
-% get some values for figure plotting
+
+% Get some values for figure plotting
 scrSize = get(0,'ScreenSize');
+
 % Plot roll:
 data = [IMU.x,IMU.x_c];
 numberOfPlot = 1;
