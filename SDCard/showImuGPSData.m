@@ -2,11 +2,20 @@
 clc;
 clear all;
 close all
-IMU = copyAndImportFileFromSDCard('imuGpsWalkInTheGarden');
+IMU = copyAndImportFileFromSDCard('imuGps_walkParallelToField_allWithStop');
 %% (optional) Just load only file to workspace:
 % load('imuRotationOfPitchAngle.mat');
 % load('imuUpAndDownInOZ.mat');
-load('imuGpsWalkInTheGarden.mat');
+% load('imuGpsWalkInTheGarden.mat');
+
+% load('imuGps_walkParallelToField_half.mat'); %dziwne wahania cisnienia. czasami wchodzilo nawet na zerow¹ wartoœc.
+% Jest chyba problem z kompensacj¹ przyspieszenia grawitacyjnego. Na OZ
+% bardzo szybko spada po³o¿enie i zmienia siê prêdkoœæ.
+
+load('imuGps_walkParallelToField_allWithStop.mat'); %dziwny spadek wysokoœci - wzrost
+% ciœnienia...??
+
+
 IMU = imuDataset;
 clear imuDataset;
 %% Show Coordinates and height
@@ -16,21 +25,33 @@ undersamplingFactor = 40;
 samplingFrequency = 400;    %Hz
 loggingFrequency = samplingFrequency/undersamplingFactor;   
 t = (1:numberOfProbes)./loggingFrequency;
-
 % get some values for figure plotting
 scrSize = get(0,'ScreenSize');
-%% Remove incorrect data:
-latCracow = 5.0045743e+07;  %average
-lonCracow = 1.9552048e+07;  %average
-latCracowMean = 5.340621965851671e+07;  %average
-lonCracowMean = 1.821655450366748e+07;  %average
+
+% Load initial values for displaing:
+latShow = IMU.latG;
+lonShow = IMU.lonG;
+tShow = t;
+latCracow = 5.0045743e+07;  %accurate
+lonCracow = 1.9552048e+07;  %accurate
+% Remove incorrect data(away from cracov):
 distThreshold =  4.0e+6;
-distMean = sqrt((IMU.latG-latCracowMean).^2+(IMU.lonG-lonCracowMean).^2);
 dist = sqrt((IMU.latG-latCracow).^2+(IMU.lonG-lonCracow).^2);
 mask = dist<distThreshold;
 latShow = IMU.latG(mask);
 lonShow = IMU.lonG(mask);
 tShow = t(mask);
+
+%% Show GSP coordinates on map;
+% [park, R] = geotiffread('ParkTiff/Untitled');
+
+figure(1);
+% mapshow(park, R);
+axis image off;
+lat_y = latShow;
+long_x = lonShow;
+[latInDeg_y,longInDeg_x] = change2Deg(lat_y,long_x); 
+mapshow(longInDeg_x, latInDeg_y);
 %% Show gps coordinates: 
 figureHandler = figure('Position',[50, scrSize(4)/2-100, scrSize(3)/2-50, scrSize(4)/2]);
 p = plot(lonShow, latShow, 'xr','MarkerSize',10 );
@@ -39,10 +60,11 @@ plot(lonCracow, latCracow, 'og', 'MarkerSize',10);
 xlabel('lonG');
 ylabel('latG');
 title('koordynaty');
+legend('Measured','Cracov');
 grid on
 axis square
 
-%% Show height from gps and from pressure.
+% Show height from gps and from pressure.
 figureHandler = figure('Position',[scrSize(3)/2, scrSize(4)/2-100, scrSize(3)/2-50, scrSize(4)/2]);
 subplot(3,1,1)
 plot(tShow, IMU.altG(mask)/10);
@@ -76,20 +98,24 @@ mapData = [IMU.lonG, IMU.latG, IMU.altG];
 coordinates  = [IMU.lonG, IMU.latG];
 
 % Adding some random gauss noise:
-noise = 1+0.00002.*randn(size(coordinates));
+meanVal = 0.00001;
+sigmaVal = 0.00002;
+noise = meanVal+sigmaVal.*randn(size(coordinates));
 
 % Converting to dd.(rest) format:
 coordinates_noise = coordinates.*noise;
 coordinates_noise = coordinates_noise.*0.000001;
 % Converting to decimal degrees:
+% TODO: zmienic na poprawn¹ konwersjê:
 coordinates_noise(:,1) = coordinates_noise(:,1)+ 0.36;  %tak na pa³e, by sie zgadzalo ;)
 coordinates_noise(:,2) = coordinates_noise(:,2)+ 0.03;
 
 % Creating two vectors for visualisation on map:
 lon_x = coordinates_noise(:,1);
 lat_y = coordinates_noise(:,2);
-%
+%%
 figure(1);
-plot(lon_x,lat_y);
+plot(lon_x,lat_y, 'x');
+
 figure(2);
 mapshow(lon_x, lat_y);

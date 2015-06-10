@@ -6,7 +6,7 @@ IMU = copyAndImportFileFromSDCard('imuGpsWalkInTheStreet');
 %% (optional) Just load only file to workspace:
 % load('imuRotationOfPitchAngle.mat');
 % load('imuUpAndDownInOZ.mat');
-load('imuGpsWalkInTheStreet.mat');
+load('imu90degAroundOY.mat');
 IMU = imuDataset;
 clear imuDataset;
 %% Show deltas
@@ -30,17 +30,6 @@ dist = sqrt((IMU.latG-latCracow).^2+(IMU.lonG-lonCracow).^2);
 mask = dist<distThreshold;
 latShow = IMU.latG(mask);
 lonShow = IMU.lonG(mask);
-%% Show gps coordinates: 
-figureHandler = figure('Position',[50, scrSize(4)/2-100, scrSize(3)/2-50, scrSize(4)/2]);
-p = plot(IMU.lonG(mask), IMU.latG(mask), 'xr','MarkerSize',10 );
-hold on
-plot(lonCracow, latCracow, 'og', 'MarkerSize',10);
-xlabel('lonG');
-ylabel('latG');
-title('koordynaty');
-grid on
-axis square
-
 %% Show deltas and speed
 clc
 tShow = t(mask);
