@@ -6,7 +6,10 @@ IMU = copyAndImportFileFromSDCard('imuGpsWalkInTheStreet');
 %% (optional) Just load only file to workspace:
 % load('imuRotationOfPitchAngle.mat');
 % load('imuUpAndDownInOZ.mat');
-load('imu90degAroundOY.mat');
+
+load('imuGps_walkParallelToField_allWithStop.mat'); %dziwny spadek wysokoœci - wzrost
+% ciœnienia...??
+
 IMU = imuDataset;
 clear imuDataset;
 %% Show deltas
@@ -42,8 +45,10 @@ plot(tShow, data');
 xlabel('Czas, s');
 ylabel('Przyrosty, m');
 legend('dx','dy','dz');
+axis on;
 disp (['mean:',mat2str(m_data,2)]);
 disp (['std:',mat2str(s_data,2)]);
 title(sprintf(['Przyrosty po³o¿enia w kolejnych osiach\n' ...
-    'mean:%s\n' ...
-    'std:%s'],mat2str(m_data,2),mat2str(s_data,2)));
+    'Œrednia: %s\n' ...
+    'Odchylenie standardowe: %s'],mat2str(m_data,2),mat2str(s_data,2)));
+saveas(figureHandler,'3przyrosty.bmp');

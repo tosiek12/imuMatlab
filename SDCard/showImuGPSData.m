@@ -56,13 +56,14 @@ mapshow(longInDeg_x, latInDeg_y);
 figureHandler = figure('Position',[50, scrSize(4)/2-100, scrSize(3)/2-50, scrSize(4)/2]);
 p = plot(lonShow, latShow, 'xr','MarkerSize',10 );
 hold on
-plot(lonCracow, latCracow, 'og', 'MarkerSize',10);
+% plot(lonCracow, latCracow, 'og', 'MarkerSize',10);
 xlabel('lonG');
 ylabel('latG');
 title('koordynaty');
 legend('Measured','Cracov');
 grid on
 axis square
+saveas(figureHandler,'2gps.bmp');
 
 % Show height from gps and from pressure.
 figureHandler = figure('Position',[scrSize(3)/2, scrSize(4)/2-100, scrSize(3)/2-50, scrSize(4)/2]);
@@ -92,6 +93,7 @@ ylabel('Wysokoœæ, m');
 hold on;
 plot(tShow, 220*ones(1,length(tShow)),'--g');
 legend('Ciœnieniomierz','rzeczywista');
+saveas(figureHandler,'2wysokosc.bmp');
 
 %% gps on maps
 mapData = [IMU.lonG, IMU.latG, IMU.altG];
