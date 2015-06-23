@@ -5,7 +5,9 @@ close all
 IMU = copyAndImportFileFromSDCard('imuUpAndDownInOZ2');
 %% (optional) Just load only file to workspace:
 % load('imuRotationOfPitchAngle.mat');
-load('imuUpAndDownInOZ2.mat');
+load('imuGps_walkParallelToField_allWithStop.mat');
+% load('imuGPS_WalkParallelToField_allWithStop_pressureTemp_v2.mat');
+
 IMU = imuDataset;
 clear imuDataset;
 %% (optional) Skip some first few data records
@@ -82,7 +84,7 @@ s_cooked = std(IMU_cooked);
 figureHandler = figure('Position',[50, scrSize(4)/2-100,scrSize(3)/2,scrSize(4)/3]);
 plot(t, IMU_raw,'-b',t, IMU_cooked,'-r');
 legend('Raw','Cooked');
-ylim([-180,180]);
+% ylim([-180,180]);
 xlim('auto');
 title(sprintf(['%s\nRaw:(mean: %.2f, stdDev: %.2f)\n' ...
     'Cooked:(mean: %.2f, stdDev: %.2f)'],'K¹t Yaw' ,m_raw,s_raw,m_cooked,s_cooked));

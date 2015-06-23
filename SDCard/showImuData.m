@@ -2,7 +2,7 @@
 clc;
 clear all;
 close all
-IMU = copyAndImportFileFromSDCard('imuGpsWalkInTheStreet');
+IMU = copyAndImportFileFromSDCard('imuGPS_WalkParallelToField_allWithStop_pressureTemp_v2');
 %% (optional) Just load only file to workspace:
 % load('imuRotationOfPitchAngle.mat');
 % load('imuUpAndDownInOZ.mat');
@@ -10,6 +10,7 @@ IMU = copyAndImportFileFromSDCard('imuGpsWalkInTheStreet');
 load('imuGps_walkParallelToField_allWithStop.mat'); %dziwny spadek wysokoœci - wzrost
 % ciœnienia...??
 
+% load('imuGPS_WalkParallelToField_allWithStop_pressureTemp_v2.mat');
 IMU = imuDataset;
 clear imuDataset;
 %% Show deltas

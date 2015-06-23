@@ -2,7 +2,7 @@
 clc;
 clear all;
 close all
-IMU = copyAndImportFileFromSDCard('imuGps_walkParallelToField_allWithStop');
+IMU = copyAndImportFileFromSDCard('imuGPS_WalkParallelToField_allWithStop_pressureTemp_v2');
 %% (optional) Just load only file to workspace:
 % load('imuRotationOfPitchAngle.mat');
 % load('imuUpAndDownInOZ.mat');
@@ -37,7 +37,8 @@ lonCracow = 1.9552048e+07;  %accurate
 % Remove incorrect data(away from cracov):
 distThreshold =  4.0e+6;
 dist = sqrt((IMU.latG-latCracow).^2+(IMU.lonG-lonCracow).^2);
-mask = dist<distThreshold;
+mask = and(dist<distThreshold,IMU.altG<1000*10);
+% mask = dist>=0;
 latShow = IMU.latG(mask);
 lonShow = IMU.lonG(mask);
 tShow = t(mask);
